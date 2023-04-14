@@ -23,5 +23,10 @@ public class Giocatore {
 	public Borsa getBorsa() {
 		return this.borsa;
 	}
+	
+	@Override
+	public String toString() {
+		return "CFU: " + this.cfu + " | " + this.borsa.toString();
+	}
 
 }
