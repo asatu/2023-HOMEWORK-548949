@@ -1,6 +1,8 @@
 package it.uniroma3.ambienti;
 import static org.junit.Assert.*;
 
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,9 +52,9 @@ public class StanzaTest {
 		assertNotContains(this.stanza.getDirezioni(), nordEst);
 	}
 
-	private void assertNotContains(String[] array, String ricercato) {
+	private void assertNotContains(Set<String> set, String ricercato) {
 		boolean contiene = false;
-		for(String elemento : array) {
+		for(String elemento : set) {
 			if(elemento != null && elemento.equals(ricercato))
 				contiene = true;
 		}
@@ -79,7 +81,7 @@ public class StanzaTest {
 
 	@Test
 	public void testGetDirezioniArrayVuoto() {
-		assertArrayEquals(new String[0], this.stanza.getDirezioni());
+		assertArrayEquals(new String[0], this.stanza.getDirezioni().toArray());
 	}
 
 	@Test
@@ -87,7 +89,7 @@ public class StanzaTest {
 		this.stanza.impostaStanzaAdiacente(NORD, new Stanza(STANZA_ADIACENTE));
 		String[] direzioni = new String[1];
 		direzioni[0] = NORD;
-		assertArrayEquals(direzioni, this.stanza.getDirezioni());
+		assertArrayEquals(direzioni, this.stanza.getDirezioni().toArray());
 	}
 
 
@@ -97,7 +99,7 @@ public class StanzaTest {
 		this.stanza.addAttrezzo(attrezzoSemplice);
 		assertEquals(attrezzoSemplice, this.stanza.getAttrezzo(ATTREZZO));
 	}
-	
+
 	@Test
 	public void testHasAttrezzoSingolo() {
 		Attrezzo attrezzo = new Attrezzo(ATTREZZO, 1);

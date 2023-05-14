@@ -1,5 +1,6 @@
 package it.uniroma3.giocatore;
 import static org.junit.Assert.*;
+import java.util.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import it.uniroma3.attrezzi.Attrezzo;
 public class BorsaTest {
 
 	private static final String ATTREZZO = "attrezzoSemplice";
+	private static final String SECONDO_ATTREZZO = "secondoAttrezzo";
 	private Borsa borsa;
 	private static final int PESO_MAX_BORSA = 20;
 
@@ -98,5 +100,42 @@ public class BorsaTest {
 		this.borsa.removeAttrezzo(ATTREZZO);
 		assertEquals(0, this.borsa.getPeso());
 	}
+
+	@Test
+	public void testGetContenutoOrdinatoPerPeso() {
+		this.borsa.addAttrezzo(new Attrezzo(SECONDO_ATTREZZO,2));
+		this.borsa.addAttrezzo(new Attrezzo(ATTREZZO,1));
+		List<Attrezzo> expected = Arrays.asList(new Attrezzo(ATTREZZO, 1), new Attrezzo(SECONDO_ATTREZZO, 2));
+		assertEquals(expected, this.borsa.getContenutoOrdinatoPerPeso());
+	}
+
+	@Test
+	public void testGetContenutoOrdinatoPerNome() {
+		this.borsa.addAttrezzo(new Attrezzo(SECONDO_ATTREZZO,2));
+		this.borsa.addAttrezzo(new Attrezzo(ATTREZZO,1));
+		Set<Attrezzo> expected = new TreeSet<>(Arrays.asList(new Attrezzo(ATTREZZO, 1),
+				new Attrezzo(SECONDO_ATTREZZO, 2)));
+		assertEquals(expected, this.borsa.getContenutoOrdinatoPerNome());
+	}
+
+	@Test
+	public void testGetContenutoRaggruppatoPerPeso() {
+		this.borsa.addAttrezzo(new Attrezzo(SECONDO_ATTREZZO,2));
+		this.borsa.addAttrezzo(new Attrezzo(ATTREZZO,1));
+		Map<Integer, Set<Attrezzo>> expected = new HashMap<>();
+		expected.put(1, Collections.singleton(new Attrezzo(ATTREZZO, 1)));
+		expected.put(2, Collections.singleton(new Attrezzo(SECONDO_ATTREZZO, 2)));
+		assertEquals(expected, this.borsa.getContenutoRaggruppatoPerPeso());
+	}
+
+	@Test
+	public void testGetSortedSetOrdinatoPerPeso() {
+		this.borsa.addAttrezzo(new Attrezzo(SECONDO_ATTREZZO,1));
+		this.borsa.addAttrezzo(new Attrezzo(ATTREZZO,1));
+		Set<Attrezzo> expected = new TreeSet<>(Arrays.asList(new Attrezzo(ATTREZZO, 1),
+				new Attrezzo(SECONDO_ATTREZZO, 1)));
+		assertEquals(expected, this.borsa.getSortedSetOrdinatoPerPeso());
+	}
+
 
 }

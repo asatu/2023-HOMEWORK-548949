@@ -4,23 +4,30 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.uniroma3.ambienti.Labirinto;
+import it.uniroma3.ambienti.LabirintoBuilder;
 import it.uniroma3.ambienti.Stanza;
 import it.uniroma3.diadia.Partita;
 
 public class PartitaTest {
 
-	private Partita partita; 
+	private Partita partita;
+	private Labirinto labirinto;
 
 	@Before
 	public void setUp() {
-		this.partita = new Partita();
+		this.labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("iniziale")
+				.addStanzaVincente("vincente")
+				.getLabirinto();
+		this.partita = new Partita(this.labirinto);
 	}
 
 	@Test
 	public void testGetStanzaVincenteNotNull() {
 		assertNotNull(this.partita.getStanzaVincente());
 	}
-	
+
 	@Test
 	public void testPartitaNonVintaInizioPartita() {
 		assertFalse(this.partita.vinta());
@@ -33,7 +40,7 @@ public class PartitaTest {
 	}
 
 	@Test
-	public void testPartitaNonVintaSeStanzaCorrenteNonEVincente() {
+	public void testPartitaNonVintaSeStanzaCorrenteNonVincente() {
 		this.partita.setStanzaCorrente(new Stanza("NonVincente"));
 		assertFalse(this.partita.vinta());
 	}
@@ -54,7 +61,7 @@ public class PartitaTest {
 	public void testInizioPartitaNonFinita() {
 		assertFalse(this.partita.isFinita());
 	}
-	
+
 	@Test
 	public void testFinitaSeCFUFiniti() {
 		this.partita.setCfu(0);
