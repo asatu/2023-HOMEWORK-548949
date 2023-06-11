@@ -2,6 +2,7 @@ package it.uniroma3.ambienti;
 import java.util.*;
 
 import it.uniroma3.attrezzi.Attrezzo;
+import it.uniroma3.personaggi.AbstractPersonaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -21,7 +22,8 @@ public class Stanza {
 
 	private String nome;
 	protected Map<String, Attrezzo> nome2attrezzo;
-	private Map<String, Stanza> direzione2stanzaAdiacente;
+	private Map<Direzione, Stanza> direzione2stanzaAdiacente;
+	private AbstractPersonaggio personaggio;
 
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -39,7 +41,7 @@ public class Stanza {
 	 * @param direzione direzione in cui sara' posta la stanza adiacente.
 	 * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
 	 */
-	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
+	public void impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
 		if(this.direzione2stanzaAdiacente.size() >= NUMERO_MASSIMO_DIREZIONI)
 			return;
 		this.direzione2stanzaAdiacente.put(direzione, stanza);
@@ -49,7 +51,7 @@ public class Stanza {
 	 * Restituisce la stanza adiacente nella direzione specificata
 	 * @param direzione
 	 */
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		return this.direzione2stanzaAdiacente.get(direzione);
 	}
 
@@ -135,8 +137,15 @@ public class Stanza {
 			return true;
 	}
 
-	public Set<String> getDirezioni() {
+	public Set<Direzione> getDirezioni() {
 		return this.direzione2stanzaAdiacente.keySet();
 	}
 
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
+	}
+
+	public void setPersonaggio(AbstractPersonaggio personaggio) {
+		this.personaggio = personaggio;
+	}
 }

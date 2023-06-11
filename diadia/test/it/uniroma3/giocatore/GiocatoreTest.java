@@ -14,8 +14,8 @@ public class GiocatoreTest {
 	}
 
 	@Test
-	public void testCfuNotNull() {
-		assertNotNull(this.giocatore.getCfu());
+	public void testCfuNonFinitiInizioPartita() {
+		assertNotEquals(0,this.giocatore.getCfu());
 	}
 
 	@Test

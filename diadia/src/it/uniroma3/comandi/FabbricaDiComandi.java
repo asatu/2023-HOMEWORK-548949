@@ -9,5 +9,5 @@ public interface FabbricaDiComandi {
 	 * @param istruzione
 	 * @return
 	 */
-	public Comando costruisciComando(String istruzione, IO io);
+	public AbstractComando costruisciComando(String istruzione, IO io);
 }

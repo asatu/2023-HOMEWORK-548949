@@ -5,25 +5,23 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.uniroma3.ambienti.Labirinto;
-import it.uniroma3.ambienti.LabirintoBuilder;
-import it.uniroma3.ambienti.Stanza;
-import it.uniroma3.diadia.IOConsole;
-import it.uniroma3.diadia.Partita;
+import it.uniroma3.ambienti.*;
+import it.uniroma3.diadia.*;
 
 public class ComandoVaiTest {
 
 	private static final String NOME_STANZA_PARTENZA = "Partenza";
 	private static final String NORD = "nord";
+	private static final Direzione DIREZIONE_NORD = Direzione.NORD;
 	private Partita partita;
-	private Comando comandoVai;
+	private AbstractComando comandoVai;
 	private Stanza partenza;
 
 	@Before
 	public void setUp() throws Exception {
 		this.comandoVai = new ComandoVai();
 		this.comandoVai.setIO(new IOConsole());
-		Labirinto labirinto = new LabirintoBuilder()
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale(NOME_STANZA_PARTENZA)
 				.getLabirinto();
 		this.partita = new Partita(labirinto);
@@ -40,7 +38,7 @@ public class ComandoVaiTest {
 	@Test
 	public void testVaiStanzaPresente() {
 		Stanza destinazione = new Stanza("Destinazione");
-		this.partenza.impostaStanzaAdiacente(NORD, destinazione);
+		this.partenza.impostaStanzaAdiacente(DIREZIONE_NORD, destinazione);
 		this.comandoVai.setParametro(NORD);
 		this.comandoVai.esegui(partita);
 		assertEquals("Destinazione", this.partita.getStanzaCorrente().getNome());
@@ -49,7 +47,7 @@ public class ComandoVaiTest {
 	@Test
 	public void testVaiStanzaPresenteInDirezioneSbagliata() {
 		Stanza destinazione = new Stanza("Destinazione");
-		this.partenza.impostaStanzaAdiacente("sud", destinazione);
+		this.partenza.impostaStanzaAdiacente(Direzione.SUD, destinazione);
 		this.comandoVai.setParametro(NORD);
 		this.comandoVai.esegui(partita);
 		assertEquals(NOME_STANZA_PARTENZA, this.partita.getStanzaCorrente().getNome());

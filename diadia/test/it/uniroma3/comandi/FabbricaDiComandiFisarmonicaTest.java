@@ -8,7 +8,7 @@ import org.junit.Test;
 import it.uniroma3.diadia.IOConsole;
 
 public class FabbricaDiComandiFisarmonicaTest {
-	
+
 	private FabbricaDiComandiFisarmonica fabbricaDiComandi;
 
 	@Before
@@ -18,50 +18,45 @@ public class FabbricaDiComandiFisarmonicaTest {
 
 	@Test
 	public void testAiuto() {
-		Comando comando = this.fabbricaDiComandi.costruisciComando("aiuto", new IOConsole());
-		assertEquals("aiuto", comando.getNome());
+		testaComandoGenerale("aiuto", "aiuto", null);
 	}
-	
+
 	@Test
 	public void testVai() {
-		Comando comando = this.fabbricaDiComandi.costruisciComando("vai", new IOConsole());
-		assertEquals("vai", comando.getNome());
-		comando.setParametro("sud");
-		assertEquals("sud", comando.getParametro());
+		testaComandoGenerale("vai","vai", "nord");
 	}
-	
+
 	@Test
 	public void testFine() {
-		Comando comando = this.fabbricaDiComandi.costruisciComando("fine", new IOConsole());
-		assertEquals("fine", comando.getNome());
+		testaComandoGenerale("fine","fine",  null);
 	}
-	
+
 	@Test
 	public void testPrendi() {
-		Comando comando = this.fabbricaDiComandi.costruisciComando("prendi", new IOConsole());
-		assertEquals("prendi", comando.getNome());
-		comando.setParametro("lanterna");
-		assertEquals("lanterna", comando.getParametro());
+		testaComandoGenerale("prendi","prendi", "osso");
 	}
-	
+
 	@Test
 	public void testPosa() {
-		Comando comando = this.fabbricaDiComandi.costruisciComando("posa", new IOConsole());
-		assertEquals("posa", comando.getNome());
-		comando.setParametro("lanterna");
-		assertEquals("lanterna", comando.getParametro());
-	}	
+		testaComandoGenerale("posa","posa",  "osso");
+	}
 
 	@Test
 	public void testComandoVuoto() {
-		Comando comando = this.fabbricaDiComandi.costruisciComando("", new IOConsole());
-		assertEquals("non_valido", comando.getNome());
+		testaComandoGenerale("","non_valido", null);
 	}	
-	
+
 	@Test
 	public void testComandoNonValido() {
-		Comando comando = this.fabbricaDiComandi.costruisciComando("vola", new IOConsole());
-		assertEquals("non_valido", comando.getNome());
+		testaComandoGenerale("tgregregrt","non_valido", null);
+	}	
+
+	private void testaComandoGenerale(String nomeComando, String comandoAtteso, String parametroDaFornire) {
+		AbstractComando comando = this.fabbricaDiComandi.costruisciComando(nomeComando, new IOConsole());
+		if (parametroDaFornire != null) 
+			comando.setParametro(parametroDaFornire);
+		assertEquals(comandoAtteso, comando.getNome());
+		assertEquals(parametroDaFornire, comando.getParametro());
 	}
 
 }

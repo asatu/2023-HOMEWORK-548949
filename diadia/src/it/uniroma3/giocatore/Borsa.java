@@ -1,10 +1,11 @@
 package it.uniroma3.giocatore;
 import java.util.*;
 import it.uniroma3.attrezzi.Attrezzo;
+import it.uniroma3.diadia.*;
 
 public class Borsa {
 
-	public final static int DEFAULT_PESO_MAX_BORSA = 10;
+	public final static int DEFAULT_PESO_MAX_BORSA = ConfigurazioniIniziali.getPesoMax();
 	private Map<String, Attrezzo> nome2attrezzo;
 	private int pesoMax;
 	private int pesoAttuale;
@@ -92,4 +93,4 @@ public class Borsa {
 		attrezziPerPeso.addAll(this.nome2attrezzo.values());
 		return attrezziPerPeso;
 	}
-}
+} 

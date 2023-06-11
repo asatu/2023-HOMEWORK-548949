@@ -10,8 +10,8 @@ public class StanzaBloccataTest {
 
 	private static final String STANZA_ADIACENTE_LIBERA = "stanzaAdLibera";
 	private static final String STANZA_ADIACENTE_BLOCCATA = "stanzaAdBloccata";
-	private static final String DIREZIONE_BLOCCATA = "DirBloccata";
-	private static final String DIREZIONE_LIBERA = "DirLibera";
+	private static final Direzione DIREZIONE_BLOCCATA = Direzione.NORD;
+	private static final Direzione DIREZIONE_LIBERA = Direzione.SUD;
 	private static final String CHIAVE_TEST = "chiaveTest";
 	private static final String STANZA_BLOCCATA = "StanzaBloccata";
 

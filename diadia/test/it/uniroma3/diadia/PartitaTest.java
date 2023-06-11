@@ -5,9 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.ambienti.Labirinto;
-import it.uniroma3.ambienti.LabirintoBuilder;
 import it.uniroma3.ambienti.Stanza;
-import it.uniroma3.diadia.Partita;
 
 public class PartitaTest {
 
@@ -16,7 +14,7 @@ public class PartitaTest {
 
 	@Before
 	public void setUp() {
-		this.labirinto = new LabirintoBuilder()
+		this.labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale("iniziale")
 				.addStanzaVincente("vincente")
 				.getLabirinto();
